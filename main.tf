@@ -8,3 +8,7 @@ resource "aws_instance" "example" {
         Name = "terraform-instance"
     }
 }
+
+resource "aws_s3_bucket" "mys3"{
+    bucket = "terraform-bucket-alex"
+}
