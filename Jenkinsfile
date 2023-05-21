@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    params {
+        string(name: 'bucket_url', defaultValue: 's3://terraform-bucket-alex-pub')
+    }
     stages {
         stage('Terraform init') {
             steps {
@@ -16,7 +18,7 @@ pipeline {
             steps{
                 sh "terraform graph > ${params.graph_file}"
                 sh "dot -Tpng ${params.graph_file} -o ${params.graph_img}"
-                sh "aws s3 cp ./${params.graph_img} s3://terraform-bucket-alex-pub"
+                sh "aws s3 cp ./${params.graph_img} ${params.bucket_url}"
             }
         }
     }
