@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Terraform destroy') {
+            steps {
+                sh 'cd /var/jenkins_home/workspace/Terraform_job'
+                sh 'aws s3 rm s3://terraform-bucket-alex-pub/graph.png'
+                sh 'terraform destroy --auto-approve'
+            }
+        }
+    }
+}
